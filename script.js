@@ -1,3 +1,30 @@
+/* the input history object */
+var History = {
+  position: 0,
+  count: 0,
+  stack: [],
+  add: function(line){
+    this.stack[this.count++] = line;
+    this.position = 0;
+  },
+  prev: function(){
+    if (this.position < this.stack.length)
+      this.position++;
+
+    return this.stack[this.stack.length - this.position];
+  },
+  next: function(){
+    if (this.position >= 2)
+      this.position--;
+    else {
+      this.position = 0;
+      return "";
+    }
+
+    return this.stack[this.stack.length - this.position];
+  }
+};
+
 $(document).ready(function(){
   var dollar = $("#dollar");
   var cmd    = $("#cmd");
@@ -13,15 +40,25 @@ $(document).ready(function(){
   // and centrally align it
   resbox.css("margin-left", 20);
 
-  // handle the Enter keydown
-  cmd.keypress(function(e){
+  // handle the key pressing
+  cmd.keydown(function(e){
+    // Enter
     if (e.which == 13){
       /* do anything only if there is something in the input */
       if (cmd.val() != ""){
+        History.add(cmd.val());
         handle_input(cmd.val());
         // clear out the input
         cmd.val("");
       }
+    }
+    // Up arrow
+    else if (e.keyCode == 38){
+      cmd.val(History.prev());
+    }
+    // Down arrow
+    else if (e.keyCode == 40){
+      cmd.val(History.next());
     }
   });
 });
@@ -34,6 +71,13 @@ function handle_input(input)
   switch (cmd){
     case "ls":
       out(".<br>..<br>hello");
+      break;
+    case "history":
+      var output = "";
+      for (entry in History.stack){
+        output += entry + " - " + History.stack[entry] + "<br>";
+      }
+      out(output);
       break;
     case "copyright":
       out("Copyleft (c) 2013 by Szymon Urbaś &lt;<a href='mailto:szymon.urbas@aol.com'>szymon.urbas@aol.com</a>&gt;");
