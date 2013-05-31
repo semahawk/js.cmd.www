@@ -4,6 +4,14 @@ body {
   background: #FAF9F0;
 }
 
+a {
+  color: #336699;
+  text-decoration: none;
+}
+
+  a:hover   { color: #339999; }
+  a:visited { color: #996666; }
+
 #container {
   margin: 0 auto;
   width: 960px;
