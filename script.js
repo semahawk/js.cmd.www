@@ -32,7 +32,7 @@ var History = {
 };
 
 $(document).ready(function(){
-  var dollar = $("#dollar");
+  var prmpt = $("#prmpt");
   var cmd    = $("#cmd");
   var resbox = $("#resbox");
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
   cmd.focus();
 
   // give the cmd a proper width
-  cmd.width(cmd.width() - dollar.width() * 2 + 3);
+  cmd.width(cmd.width() - prmpt.width() * 2 + 3);
   // give the results box proper width
   resbox.width(resbox.width() - 80);
   // and centrally align it
@@ -71,8 +71,9 @@ $(document).ready(function(){
 
 function handle_input(input)
 {
-  var args = input.split(" ");
-  var cmd  = args[0];
+  var prmpt = $("#prmpt");
+  var args   = input.split(" ");
+  var cmd    = args[0];
 
   switch (cmd){
     case "history":
@@ -150,6 +151,19 @@ function handle_input(input)
           setTimeout(function(){ out("/* some crap */"); }, 1000);
         } else {
           outfile(args[1]);
+        }
+      }
+      break;
+    case "su":
+      if (args[1] == undefined){
+        prmpt.html("#");
+        out();
+      } else {
+        if (args[1] === "szymon"){
+          prmpt.html("»");
+          out();
+        } else {
+          out("Unknown id: " + args[1]);
         }
       }
       break;

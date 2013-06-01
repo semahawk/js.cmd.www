@@ -65,7 +65,7 @@ input[type="text"] {
   border-left: 1px solid #FFF;
 }
 
-#dollar {
+#prmpt {
   border-right: 1px solid #DBD9CA;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.124);
   color: #8F8C71;
