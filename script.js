@@ -42,7 +42,7 @@ $(document).ready(function(){
   // give the cmd a proper width
   cmd.width(cmd.width() - prmpt.width() * 2 + 3);
   // give the results box proper width
-  resbox.width(resbox.width() - 80);
+  resbox.width(resbox.width() - 40);
   // and a proper maximum height
   resbox.css("max-height", $(window).height() - cmd.height() - 90);
   // and centrally align it
@@ -190,28 +190,42 @@ function out(output)
 {
   var resbox = $("#resbox");
 
-  //resbox.animate({
-    //height: '0',
-    //padding: '0'
-  //}, {
-    //duration: 50,
-    //easing: 'easeOutBounce'
-  //});
-
-  if (output == null){
-    resbox.html("");
-    resbox.css("padding", 0);
-    resbox.css("height", 0);
-  }
-  else {
-    resbox.html(output);
+  if (output == undefined){
     resbox.animate({
-      height: '100%',
-      padding: '20'
+      height: '0',
+      padding: '0 20'
     }, {
       duration: 500,
       easing: 'easeOutBounce'
     });
+  } else {
+    if (resbox.html() == undefined){
+      resbox.html(output);
+      resbox.animate({
+        height: '100%',
+        padding: '20'
+      }, {
+        duration: 500,
+        easing: 'easeOutBounce'
+      });
+    } else {
+      //alert(resbox.html());
+      resbox.animate({
+        height: '0',
+        padding: '0 20'
+      }, {
+        duration: 200,
+        easing: 'easeInBounce'
+      });
+      resbox.html(output);
+      resbox.animate({
+        height: '100%',
+        padding: '20'
+      }, {
+        duration: 500,
+        easing: 'easeOutBounce'
+      });
+    }
   }
 }
 
