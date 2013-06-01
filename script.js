@@ -199,7 +199,7 @@ function out(output)
       easing: 'easeOutBounce'
     });
   } else {
-    if (resbox.html() == undefined){
+    if (resbox.html() == ""){
       resbox.html(output);
       resbox.animate({
         height: '100%',
@@ -209,13 +209,13 @@ function out(output)
         easing: 'easeOutBounce'
       });
     } else {
-      //alert(resbox.html());
+      resbox.html("");
       resbox.animate({
         height: '0',
         padding: '0 20'
       }, {
         duration: 200,
-        easing: 'easeInBounce'
+        easing: 'easeInExpo'
       });
       resbox.html(output);
       resbox.animate({
