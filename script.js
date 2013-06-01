@@ -43,6 +43,8 @@ $(document).ready(function(){
   cmd.width(cmd.width() - prmpt.width() * 2 + 3);
   // give the results box proper width
   resbox.width(resbox.width() - 80);
+  // and a proper maximum height
+  resbox.css("max-height", $(window).height() - cmd.height() - 90);
   // and centrally align it
   resbox.css("margin-left", 20);
 
@@ -65,6 +67,14 @@ $(document).ready(function(){
     // Down arrow
     else if (e.keyCode == 40){
       cmd.val(History.next());
+    }
+    // Pg up
+    else if (e.keyCode == 33){
+      resbox.scrollTo('-=288px', 500, { easing: 'easeOutBounce' });
+    }
+    // Pg down
+    else if (e.keyCode == 34){
+      resbox.scrollTo('+=288px', 500, { easing: 'easeOutBounce' });
     }
   });
 });
@@ -199,7 +209,7 @@ function out(output)
       height: '100%',
       padding: '20'
     }, {
-      duration: 100,
+      duration: 500,
       easing: 'easeOutBounce'
     });
   }
