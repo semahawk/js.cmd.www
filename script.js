@@ -1,3 +1,9 @@
+/* abstract file system */
+var FS = {
+  current: 0,
+
+};
+
 /* the input history object */
 var History = {
   position: 0,
@@ -69,18 +75,12 @@ function handle_input(input)
   var cmd  = args[0];
 
   switch (cmd){
-    case "ls":
-      out(".<br>..<br>hello");
-      break;
     case "history":
       var output = "";
       for (entry in History.stack){
         output += entry + " - " + History.stack[entry] + "<br>";
       }
       out(output);
-      break;
-    case "copyright":
-      out("Copyleft (c) 2013 by Szymon Urbaś &lt;<a href='mailto:szymon.urbas@aol.com'>szymon.urbas@aol.com</a>&gt;");
       break;
     case "echo":
       out(args.slice(1).join(" "));
@@ -129,16 +129,32 @@ function handle_input(input)
       }
       break;
     case "cat":
-      if (args[1] === "/dev/urandom"){
-        out("sending an e-mail to Chuck Norris asking about the contents of /dev/urandom...");
-        setTimeout(function(){ out("OH NOEZ"); }, 3000);
-        setTimeout(function(){ out("stack overflow!"); }, 3000);
-        setTimeout(function(){ out("call the ambulance!"); }, 3000);
-        setTimeout(function(){ out("oh, no, wait.. here it is!"); }, 3000);
-        setTimeout(function(){ out("/* some crap */"); }, 3000);
+      if (args[1] == undefined){
+        out("<input style='width: 868px; font-size: 24px;' type='text' id='cat-input'>");
+        $("#cat-input").val("").focus();
+        // handle the key pressing
+        $("#cat-input").keydown(function(e){
+          // Enter
+          if (e.which == 13){
+            out($("#cat-input").val());
+            $("#cmd").focus();
+          }
+        });
       } else {
-        out();
+        if (args[1] === "/dev/urandom"){
+          out("sending an e-mail to Chuck Norris asking about the contents of /dev/urandom...");
+          setTimeout(function(){ out("OH NOEZ"); }, 1000);
+          setTimeout(function(){ out("stack overflow!"); }, 1000);
+          setTimeout(function(){ out("call the ambulance!"); }, 1000);
+          setTimeout(function(){ out("oh, no, wait.. here it is!"); }, 1000);
+          setTimeout(function(){ out("/* some crap */"); }, 1000);
+        } else {
+          outfile(args[1]);
+        }
       }
+      break;
+    case "ls":
+      out(".<br>..<br>hello<br>copyright");
       break;
     default:
       out(cmd + ": command not found");
@@ -150,13 +166,13 @@ function out(output)
 {
   var resbox = $("#resbox");
 
-  resbox.animate({
-    height: '0',
-    padding: '0'
-  }, {
-    duration: 50,
-    easing: 'easeOutBounce'
-  });
+  //resbox.animate({
+    //height: '0',
+    //padding: '0'
+  //}, {
+    //duration: 50,
+    //easing: 'easeOutBounce'
+  //});
 
   if (output == null){
     resbox.html("");
@@ -173,4 +189,19 @@ function out(output)
       easing: 'easeOutBounce'
     });
   }
+}
+
+function outfile(fname)
+{
+  var resbox = $("#resbox");
+  var content = "";
+  /* create a dummy div */
+  //jQuery('<div/>', { id: 'dummy', style: 'display: none' }).appendTo("html");
+  jQuery('<div/>', { id: 'dummy' }).load(fname, function(response, status, xhr){
+    if (xhr.status == "404"){
+      out(fname + ": file not found");
+    } else {
+      out(response);
+    }
+  });
 }

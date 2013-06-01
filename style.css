@@ -1,7 +1,13 @@
+* {
+  font-family: monospace;
+  color: #8F8C71;
+}
+
 body {
   margin: 0px;
   padding: 0px;
   background: #FAF9F0;
+  color: #8F8C71;
 }
 
 a {
@@ -11,6 +17,20 @@ a {
 
   a:hover   { color: #339999; }
   a:visited { color: #996666; }
+
+textarea {
+  resize: both;
+  width: 868px;
+  border: 1px solid #D6D3BC;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  border: 1px solid #D6D3BC;
+  padding: 5px;
+  border-radius: 5px;
+}
 
 #container {
   margin: 0 auto;
@@ -37,7 +57,6 @@ a {
   font-size: 24px;
   padding: 10px;
   float: left;
-  font-family: monospace;
   color: #8F8C71;
   border: none;
   -webkit-border-bottom-right-radius: 10px;
@@ -49,7 +68,6 @@ a {
 #dollar {
   border-right: 1px solid #DBD9CA;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.124);
-  font-family: monospace;
   color: #8F8C71;
   line-height: 50px;
   width: 26px;
@@ -62,7 +80,6 @@ a {
   background: #FFFFFF;
   color: #8F8C71;
   font-size: 20px;
-  font-family: monospace;
   border: 1px solid #D6D3BC;
   border-top: none;
   -webkit-border-bottom-right-radius: 10px;
