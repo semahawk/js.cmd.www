@@ -94,7 +94,7 @@ function handle_input(input)
       out(output);
       break;
     case "echo":
-      out(args.slice(1).join(" "));
+      outraw(args.slice(1).join(" "));
       break;
     case "clear":
       out();
@@ -218,6 +218,49 @@ function out(output)
         easing: 'easeInExpo'
       });
       resbox.html(output);
+      resbox.animate({
+        height: '100%',
+        padding: '20'
+      }, {
+        duration: 500,
+        easing: 'easeOutBounce'
+      });
+    }
+  }
+}
+
+function outraw(output)
+{
+  var resbox = $("#resbox");
+
+  if (output == undefined){
+    resbox.animate({
+      height: '0',
+      padding: '0 20'
+    }, {
+      duration: 500,
+      easing: 'easeOutBounce'
+    });
+  } else {
+    if (resbox.html() == ""){
+      resbox.text(output);
+      resbox.animate({
+        height: '100%',
+        padding: '20'
+      }, {
+        duration: 500,
+        easing: 'easeOutBounce'
+      });
+    } else {
+      resbox.html("");
+      resbox.animate({
+        height: '0',
+        padding: '0 20'
+      }, {
+        duration: 200,
+        easing: 'easeInExpo'
+      });
+      resbox.text(output);
       resbox.animate({
         height: '100%',
         padding: '20'
